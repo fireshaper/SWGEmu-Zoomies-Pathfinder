@@ -431,8 +431,11 @@ function buildGraph() {
   add(HUB_DAN, HUB_COR);
   for (const s of STOPS.dantooine) if (s !== HUB_DAN) add(s, HUB_DAN);
 
-  // Dathomir, Yavin4, Talus -> Doaba only
-  for (const s of [...STOPS.dathomir, ...STOPS.yavin4, ...STOPS.talus]) add(s, HUB_COR);
+  // Dathomir, Yavin4 -> Doaba only
+  for (const s of [...STOPS.dathomir, ...STOPS.yavin4]) add(s, HUB_COR);
+
+  // Talus hub -> Doaba (non-hub Talus stops route through HUB_TAL)
+  add(HUB_TAL, HUB_COR);
 
   // Tatooine: terminals -> Mos_Eisley -> Doaba + Naboo
   add(HUB_TAT, HUB_COR);
