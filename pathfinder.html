@@ -409,7 +409,8 @@ const HUB_COR = 'Doaba_Guerfel_Shuttleport';
 const HUB_NAB = 'The_Lake_Retreat';
 const HUB_DAN = 'Dantooine_Agro_Outpost';
 const HUB_TAT = 'Mos_Eisley_Shuttleport';
-const HUBS = new Set([HUB_COR, HUB_NAB, HUB_DAN, HUB_TAT]);
+const HUB_TAL = 'Dearic_Shuttleport';
+const HUBS = new Set([HUB_COR, HUB_NAB, HUB_DAN, HUB_TAT, HUB_TAL]);
 
 function buildGraph() {
   const adj = {};
@@ -452,6 +453,9 @@ function buildGraph() {
 
   // Hoth -> Smuggler_Outpost (Endor) only
   for (const s of STOPS.hoth) add(s, 'Smuggler_Outpost');
+
+  // Talus terminal
+  for (const s of STOPS.talus) if (s !== HUB_TAL) add(s, HUB_TAL);
 
   return adj;
 }
