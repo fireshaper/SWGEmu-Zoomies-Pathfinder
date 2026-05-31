@@ -393,7 +393,7 @@ const STOPS = {
   dathomir:  ['Science_Outpost','Trade_Outpost','Village_Shuttleport'],
   endor:     ['Research_Outpost','Smuggler_Outpost'],
   hoth:      ['Delta_Base','Imperial_Outpost'],
-  lok:       ["Nym's_Stronghold",'Yarrock'],
+  lok:       ["Nym's_Stronghold",'Yarrock','High_Mesa','detah_star','guon_mold','twisted_metal','aalabastrum','black_sun_outpost'],
   naboo:     ['Highgarden','Kaadara_Shuttleport','The_Lake_Retreat','Theed_Shuttle_B','Theed_Shuttle_C'],
   rori:      ['Narmle_Shuttleport','Rebel_Outpost','Restuss_Shuttleport','Restuss_Starport', 'BFE'],
   talus:     ['Dearic_Shuttleport','Riverside','Hunters_Homestead'],
@@ -450,9 +450,9 @@ function buildGraph() {
   // Rori, Endor -> The_Lake_Retreat
   for (const s of [...STOPS.rori, ...STOPS.endor]) add(s, HUB_NAB);
 
-  // Lok -> The_Lake_Retreat; Yarrock routes through Nym's first
-  for (const s of STOPS.lok) add(s, HUB_NAB);
-  add('Yarrock', "Nym's_Stronghold");
+  // Lok -> The_Lake_Retreat via Nym's_Stronghold; all non-hub stops route through Nym's
+  add("Nym's_Stronghold", HUB_NAB);
+  for (const s of STOPS.lok) if (s !== "Nym's_Stronghold") add(s, "Nym's_Stronghold");
 
   // Hoth -> Smuggler_Outpost (Endor) only
   for (const s of STOPS.hoth) add(s, 'Smuggler_Outpost');
