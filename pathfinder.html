@@ -410,7 +410,8 @@ const HUB_NAB = 'The_Lake_Retreat';
 const HUB_DAN = 'Dantooine_Agro_Outpost';
 const HUB_TAT = 'Mos_Eisley_Shuttleport';
 const HUB_TAL = 'Dearic_Shuttleport';
-const HUBS = new Set([HUB_COR, HUB_NAB, HUB_DAN, HUB_TAT, HUB_TAL]);
+const HUB_ROR = 'Restuss_Starport';
+const HUBS = new Set([HUB_COR, HUB_NAB, HUB_DAN, HUB_TAT, HUB_TAL, HUB_ROR]);
 
 function buildGraph() {
   const adj = {};
@@ -447,8 +448,12 @@ function buildGraph() {
   // Naboo terminals -> The_Lake_Retreat
   for (const s of STOPS.naboo) if (s !== HUB_NAB) add(s, HUB_NAB);
 
-  // Rori, Endor -> The_Lake_Retreat
-  for (const s of [...STOPS.rori, ...STOPS.endor]) add(s, HUB_NAB);
+  // Endor -> The_Lake_Retreat
+  for (const s of STOPS.endor) add(s, HUB_NAB);
+
+  // Rori: off-planet via Restuss_Starport; all Rori cities route through it
+  add(HUB_ROR, HUB_NAB);
+  for (const s of STOPS.rori) if (s !== HUB_ROR) add(s, HUB_ROR);
 
   // Lok -> The_Lake_Retreat via Nym's_Stronghold; all non-hub stops route through Nym's
   add("Nym's_Stronghold", HUB_NAB);
